@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Implant Revenue Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, input, button {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input {
+            padding: 5px;
+            width: 100px;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Dental Implant Revenue Calculator</h2>
+
+    <label for="numImplants">Number of Implants:</label>
+    <input type="number" id="numImplants" value="2">
+
+    <label for="implantCost">Cost per Implant (INR):</label>
+    <input type="number" id="implantCost" value="35000">
+
+    <label for="labCost">Lab Cost per Implant (INR):</label>
+    <input type="number" id="labCost" value="9000">
+
+    <label for="amountPaid">Amount Already Paid to Senior Dentist (INR):</label>
+    <input type="number" id="amountPaid" value="0">
+
+    <label for="amountTaken">Amount You Have Already Taken (INR):</label>
+    <input type="number" id="amountTaken" value="0">
+
+    <button onclick="calculate()">Calculate</button>
+
+    <h3>Results:</h3>
+    <p id="yourShare"></p>
+    <p id="seniorShare"></p>
+
+    <script>
+        function calculate() {
+            const numImplants = parseInt(document.getElementById('numImplants').value);
+            const implantCost = parseInt(document.getElementById('implantCost').value);
+            const labCost = parseInt(document.getElementById('labCost').value);
+            const amountPaid = parseInt(document.getElementById('amountPaid').value);
+            const amountTaken = parseInt(document.getElementById('amountTaken').value);
+
+            const totalRevenue = numImplants * (implantCost + labCost); // Total received from patient
+            const totalLabCost = numImplants * labCost; // Total lab cost
+
+            const netRevenue = totalRevenue - totalLabCost; // Net revenue after lab costs
+
+            const totalShareEach = netRevenue * 0.5; // 50-50 share
+            const remainingSeniorShare = totalShareEach - amountPaid;
+            const remainingYourShare = totalShareEach - amountTaken;
+
+            document.getElementById('yourShare').innerHTML = `Your Remaining Share: ₹${remainingYourShare.toFixed(2)}`;
+            document.getElementById('seniorShare').innerHTML = `Senior Dentist's Remaining Share: ₹${remainingSeniorShare.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+</html>
